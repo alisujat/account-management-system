@@ -18,5 +18,5 @@ app.use('/bankStatement' , bankStatementRouter);
 
 
 app.listen(port , ()=>{
-    console.log("server is running");
+    console.log("server is running")
 })
