@@ -33,7 +33,7 @@ exports.getAllData = async (req, res) => {
         return result;
 
     } catch (e) {
-        res.status(200).send(e);
+        return e;
     }
 }
 
