@@ -1,46 +1,39 @@
-const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 module.exports = validate = [
 
     [
-        // body('Narration','narratin must be Email').isInt().isIn('20','40')
-        body('Date','start must be in correct format yyyy-mm-dd')
+        // check('Narration','narratin must be Email').isInt().isIn('20','40')
+        check('Date','start must be in correct format yyyy-mm-dd')
         .exists()
-        .isEmpty()
         .isISO8601('yyyy-mm-dd'),
 
-        body('Narration','Narration cannot be empty')
+        check('Narration','Narration cannot be empty')
         .exists()
-        .isEmpty()
         .isString(),
 
-        body('referenceNo','reference number cannot be empty')
+        check('referenceNo','reference number cannot be empty')
         .exists()
-        .isEmpty()
         .isString(),
 
-        body('withdrawlAmount','minimum withdrawlAmount must be zero or greater than zero')
+        check('withdrawlAmount','minimum withdrawlAmount must be zero or greater than zero')
         .exists()
-        .isEmpty()
         .isInt()
         .isLength({min:"0"}),
 
-        body('depositAmount','minimum withdrawlAmount must be zero or greater than zero')
+        check('depositAmount','minimum withdrawlAmount must be zero or greater than zero')
         .exists()
-        .isEmpty()
         .isInt()
         .isLength({min:"0"}),
 
-        body('depositAmount','depositAmount is required')
+        check('depositAmount','depositAmount is required')
         .exists()
-        .isEmpty()
         .isInt()
         .isLength({min:"0"}),
 
 
-        body('reason','this field is required')
+        check('reason','this field is required')
         .exists()
-        .isEmpty()
         .isString()
         .trim()
         .isLength({min:"1"}),
@@ -63,7 +56,7 @@ module.exports = validate = [
 // module.exports = validate = [
 
 //     [
-//         body('Narration').isEmpty({ min: 2 }).withMessage('Narration length must be 2 char'),
+//         check('Narration').isEmpty({ min: 2 }).withMessage('Narration length must be 2 char'),
         
 //     ],
 
@@ -84,9 +77,9 @@ module.exports = validate = [
 
 
 // module.exports = NarrationValidator = [
-//     body('referenceNo',).custom((value ,{req ,res ,next} )=> {
-//         console.log(req.body.referenceNo)
-//         if(value !== req.body.referenceNo){
+//     check('referenceNo',).custom((value ,{req ,res ,next} )=> {
+//         console.log(req.check.referenceNo)
+//         if(value !== req.check.referenceNo){
            
 //             console.log("dddd")
 //             return res.status(201).json({message: "Reference Number is not match please enter valid Reference Number"})
