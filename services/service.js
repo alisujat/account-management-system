@@ -19,7 +19,7 @@ exports.bankStatementModel = async (req, res) => {
         return saveData;
 
     } catch (error) {
-        res.status(400).send(error)
+        return error;
     }
 }
 
@@ -56,7 +56,6 @@ exports.deleteData = async (req, res) => {
 exports.updateData = async (req, res) => {
     try {
         const result = await bankStatementModel.find({ referenceNo: req.body.referenceNo });
-        // console.log(result[Narration]);
         if (result.length == 0) {
             return false;
             
@@ -76,6 +75,5 @@ exports.updateData = async (req, res) => {
 
     } catch (e) {
         return e ;
-        // res.status(400).send(e);
     }
 }
