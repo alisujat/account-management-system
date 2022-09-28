@@ -1,10 +1,51 @@
-const { check, validationResult } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 
 module.exports = validate = [
 
     [
-        // check('Narration','narratin must be Email').isInt().isIn('20','40')
-        check('Narration','narratin must be number').toBoolean().isLength({min:10 ,max:12}),
+        // body('Narration','narratin must be Email').isInt().isIn('20','40')
+        body('Date','start must be in correct format yyyy-mm-dd')
+        .exists()
+        .isEmpty()
+        .isISO8601('yyyy-mm-dd'),
+
+        body('Narration','Narration cannot be empty')
+        .exists()
+        .isEmpty()
+        .isString(),
+
+        body('referenceNo','reference number cannot be empty')
+        .exists()
+        .isEmpty()
+        .isString(),
+
+        body('withdrawlAmount','minimum withdrawlAmount must be zero or greater than zero')
+        .exists()
+        .isEmpty()
+        .isInt()
+        .isLength({min:"0"}),
+
+        body('depositAmount','minimum withdrawlAmount must be zero or greater than zero')
+        .exists()
+        .isEmpty()
+        .isInt()
+        .isLength({min:"0"}),
+
+        body('depositAmount','depositAmount is required')
+        .exists()
+        .isEmpty()
+        .isInt()
+        .isLength({min:"0"}),
+
+
+        body('reason','this field is required')
+        .exists()
+        .isEmpty()
+        .isString()
+        .trim()
+        .isLength({min:"1"}),
+
+        
     ],
 
     (req, res, next) => {
@@ -12,7 +53,7 @@ module.exports = validate = [
         if (!errors.isEmpty()) {
             res.status(400).json({ errors: errors.array() });
         } else {
-            next();
+            next()
         }
     }
 ]
