@@ -1,7 +1,7 @@
 const { check, validationResult } = require('express-validator');
 
 module.exports = validate = [
-
+ 
     [
         // check('Narration','narratin must be Email').isInt().isIn('20','40')
         check('Date','start must be in correct format yyyy-mm-dd')
@@ -53,22 +53,25 @@ module.exports = validate = [
 
 
 
-// module.exports = validate = [
+module.exports = DeleteValidation = [
 
-//     [
-//         check('Narration').isEmpty({ min: 2 }).withMessage('Narration length must be 2 char'),
+    [
+        check('referenceNo','referenceNo is required')
+        .exists()
+        .isString()
+        .isLength({ min: 5 })
         
-//     ],
+    ],
 
-//     (req, res, next) => {
-//         const errors = validationResult(req);
-//         if (!errors.isEmpty()) {
-//             res.status(400).json({ errors: errors.array() });
-//         } else {
-//             next()
-//         }
-//     }
-// ]
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errors.array() });
+        } else {
+            next()
+        }
+    }
+]
 
 
 

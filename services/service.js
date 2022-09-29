@@ -41,8 +41,11 @@ exports.getAllData = async (req, res) => {
 // delete by reference number
 exports.deleteData = async (req, res) => {
     try {
+        console.log("ddd")
         const rNo = req.body.referenceNo;
+        console.log(rNo)
         const result = await bankStatementModel.findOneAndRemove(rNo);
+        console.log(result)
         return result;
 
     } catch (e) {

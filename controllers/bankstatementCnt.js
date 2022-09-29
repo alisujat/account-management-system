@@ -36,8 +36,9 @@ exports.getBankStatement = async (data, res) => {
 // delete data by reference number
 exports.deleteBankStatement = async (data, res) => {
     try {
-        const getData = await bankStatementS.deleteData(data);
-        res.status(200).send({"deleted data is ": getData})
+        const deletedData = await bankStatementS.deleteData(data);
+        console.log(deletedData)
+        res.status(200).send({"deleted data is ": deletedData})
 
     } catch (err) {
         res.status(400).send(err);
