@@ -1,9 +1,10 @@
-const { check, validationResult } = require('express-validator');
+const { check,validationResult } = require('express-validator');
 
-module.exports = validate = [
+module.exports= validator = [
  
     [
-        // check('Narration','narratin must be Email').isInt().isIn('20','40')
+        
+        
         check('Date','start must be in correct format yyyy-mm-dd')
         .exists()
         .isISO8601('yyyy-mm-dd'),
@@ -38,64 +39,17 @@ module.exports = validate = [
         .trim()
         .isLength({min:"1"}),
 
-        
+     
     ],
 
-    (req, res, next) => {
+    (req, res ,next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errors.array() });
-        } else {
-            next()
+          return res.status(400).json({ errors: errors.array() });
+        }else{
+            next();
         }
     }
 ]
 
 
-
-module.exports = DeleteValidation = [
-
-    [
-        check('referenceNo','referenceNo is required')
-        .exists()
-        .isString()
-        .isLength({ min: 5 })
-        
-    ],
-
-    (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errors.array() });
-        } else {
-            next()
-        }
-    }
-]
-
-
-
-
-
-
-
-// module.exports = NarrationValidator = [
-//     check('referenceNo',).custom((value ,{req ,res ,next} )=> {
-//         console.log(req.check.referenceNo)
-//         if(value !== req.check.referenceNo){
-           
-//             console.log("dddd")
-//             return res.status(201).json({message: "Reference Number is not match please enter valid Reference Number"})
-//         }else{
-//             next();
-//         }
-//         // return User.findUserByEmail(value).then(user => {
-//         //   if (user) {
-//         //     return Promise.reject('E-mail already in use');
-//         //   }
-//         // });
-//       }),
-//     //   (req, res , next) => {
-//     //     // Handle the request
-//     //   },
-// ]

@@ -3,17 +3,31 @@ const bankStatementModel = require("../models/bankStatement");
 //create bank statement
 exports.bankStatementModel = async (req, res) => {
 
+    
+
     try {
+         const {
+            Date,
+            Narration,
+            referenceNo,
+            valueDate,
+            withdrawlAmount,
+            depositAmount,
+            closingAmount,
+            reason,
+            detail
+          } = req?.body;
+
         const statementData = bankStatementModel({
-            Date: req.body.Date,
-            Narration: req.body.Narration,
-            referenceNo: req.body.referenceNo,
-            valueDate: req.body.valueDate,
-            withdrawlAmount: req.body.withdrawlAmount,
-            depositAmount: req.body.depositAmount,
-            closingAmount: req.body.closingAmount,
-            reason: req.body.reason,
-            detail: req.body.detail,
+            Date: Date,
+            Narration,
+            referenceNo,
+            valueDate,
+            withdrawlAmount,
+            depositAmount,
+            closingAmount,
+            reason,
+            detail
         })
         const saveData = await statementData.save();
         return saveData;
@@ -42,7 +56,7 @@ exports.getAllData = async (req, res) => {
 exports.deleteData = async (req, res) => {
     try {
         console.log("ddd")
-        const rNo = req.body.referenceNo;
+        const rNo = req?.body.referenceNo;
         console.log(rNo)
         const result = await bankStatementModel.findOneAndRemove(rNo);
         console.log(result)
@@ -58,25 +72,48 @@ exports.deleteData = async (req, res) => {
 //update data reference number
 exports.updateData = async (req, res) => {
     try {
-        const result = await bankStatementModel.find({ referenceNo: req.body.referenceNo });
+        const result = await bankStatementModel.find({ referenceNo: req?.body.referenceNo });
         if (result.length == 0) {
             return false;
             
         } else {
-                await bankStatementModel.updateMany({ referenceNo: req.body.referenceNo }, {
-                Narration: req.body.Narration,
-                valueDate: req.body.valueDate,
-                withdrawlAmount: req.body.withdrawlAmount,
-                depositAmount: req.body.depositAmount,
-                closingAmount: req.body.closingAmount,
-                reason: req.body.reason,
-                detail: req.body.detail,
+                await bankStatementModel.updateMany({ referenceNo: req?.body.referenceNo }, {
+                Narration: req?.body.Narration,
+                valueDate: req?.body.valueDate,
+                withdrawlAmount: req?.body.withdrawlAmount,
+                depositAmount: req?.body.depositAmount,
+                closingAmount: req?.body.closingAmount,
+                reason: req?.body.reason,
+                detail: req?.body.detail,
             });
             
             return true;
         }
 
     } catch (e) {
+        return e ;
+    }
+}
+
+
+// get element by reference number
+
+exports.getDataByRefeNo = async (req, res) => {
+    try {
+       
+            const result = await bankStatementModel.findOne({ referenceNo: req?.body.referenceNo });
+            // console.log(typeof(result))
+            if (result === null) {
+                return false;
+                
+            } else {
+                    return result;
+                };
+        
+        
+          }
+
+     catch (e) {
         return e ;
     }
 }

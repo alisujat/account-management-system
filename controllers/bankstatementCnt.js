@@ -65,6 +65,25 @@ exports.updateBankStatement = async (data, res) => {
 
 
 
+// get element by reference number
+
+exports.getDataByReference = async (data, res) => {
+    try {
+        const DataByRef = await bankStatementS.getDataByRefeNo(data);
+        // console.log(DataByRef)
+        if(DataByRef == false){
+         res.status(404).send({ message: "Please Enter Valid Reference Number" });
+        }else{
+            res.status(200).send(DataByRef)
+        }
+       
+    } catch (err) {
+        res.status(400).send(err);
+    }
+}
+
+
+
 
 // find data by dates
 // exports.findByDate = async (req, res) => {
