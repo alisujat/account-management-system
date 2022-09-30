@@ -3,7 +3,6 @@ const bankStatement_schema = mongoose.Schema({
     Date:{
         type:Date, 
         required:true,
-        default: Date.now
     },
     Narration:{
         type:String, 

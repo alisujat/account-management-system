@@ -2,47 +2,48 @@ const { check,validationResult } = require('express-validator');
 
 module.exports= validator = [
  
-    [
+    
         
         
-        check('Date','start must be in correct format yyyy-mm-dd')
+        check('Date')
         .exists()
-        .isISO8601('yyyy-mm-dd'),
+        .isISO8601('yyyy-mm-dd')
+        .withMessage('start must be in correct format yyyy:mm:dd'),
+        // .isISO8601('yyyy-mm-dd').withMessage("start must be in correct format yyyy-mm-dd"),
 
-        check('Narration','Narration cannot be empty')
-        .exists()
-        .isString(),
+        check('Narration')
+        .exists().withMessage("required")
+        .isString().withMessage("please enter String"),
 
-        check('referenceNo','reference number cannot be empty')
-        .exists()
-        .isString(),
+        check('referenceNo')
+        .exists().withMessage("required")
+        .isString().withMessage("please enter String"),
 
-        check('withdrawlAmount','minimum withdrawlAmount must be zero or greater than zero')
-        .exists()
-        .isInt()
+        check('withdrawlAmount')
+        .exists().withMessage("required")
+        .isInt().withMessage("please enter Numaric value  ")
         .isLength({min:"0"}),
 
-        check('depositAmount','minimum withdrawlAmount must be zero or greater than zero')
-        .exists()
-        .isInt()
+        check('depositAmount')
+        .exists().withMessage("required")
+        .isInt().withMessage("please enter Numaric value  ")
         .isLength({min:"0"}),
 
-        check('depositAmount','depositAmount is required')
-        .exists()
-        .isInt()
+        check('depositAmount')
+        .exists().withMessage("required")
+        .isInt().withMessage("please enter Numaric value  ")
         .isLength({min:"0"}),
 
 
-        check('reason','this field is required')
-        .exists()
-        .isString()
+        check('reason')
+        .exists().withMessage("required")
+        .isString().withMessage("please enter string  ")
         .trim()
         .isLength({min:"1"}),
 
-     
-    ],
 
     (req, res ,next) => {
+        // console.log("ddd")
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
           return res.status(400).json({ errors: errors.array() });
