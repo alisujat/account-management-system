@@ -7,8 +7,7 @@ module.exports= validator = [
         
         check('Date')
         .exists()
-        .isISO8601('yyyy-mm-dd').withMessage('please enter valid date')
-        .matches('^([0-9]|0[0-9]|1[0-9]|2[0-3])$')
+        .isISO8601('yyyy-mm-dd')
         .withMessage('start must be in correct format yyyy:mm:dd'),
         // .isISO8601('yyyy-mm-dd').withMessage("start must be in correct format yyyy-mm-dd"),
 
